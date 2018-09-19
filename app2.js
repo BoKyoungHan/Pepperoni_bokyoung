@@ -13,10 +13,9 @@ var code = parser.parseCode(phpFile);
 var nodeVisitor = new NodeVisitor();
 var callVisitor = new CallVisitor();
 
-code.accept(nodeVisitor);
-code.accept(callVisitor);
-
+// code.accept(nodeVisitor);
+// code.accept(callVisitor);
 
 callVisitor.nodes.forEach( e=>{console.log(e);
-console.log("______________________________________");
+//console.log("______________________________________");
 } )

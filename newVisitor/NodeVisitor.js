@@ -9,6 +9,7 @@ class NodeVisitor extends Visitor {
 
     
     visit(node){
+        //console.log("node");
         _.each( _.values(node), (value)=>{
             if( _.has( value, 'kind')){
                 this.nodes.push(value);              
@@ -17,6 +18,8 @@ class NodeVisitor extends Visitor {
                 this.visit(value);
             }
         });
+        // console.log("Node visitor");
+        // console.log(this.nodes);
     }
 }
 

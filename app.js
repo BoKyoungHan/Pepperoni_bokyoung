@@ -1,23 +1,26 @@
-const SetcookieVisitor = require('./visitor/SetcookieVisitor');
-
+const SetcookieVisitor = require('./newVisitor/SetcookieVisitor');
 var parser = require('./main');
 var fs = require('fs');
-
+var Node = require('./element/Node');
 var phpFile = fs.readFileSync( './example.php' );
-var code = parser.parseCode(phpFile);
+var NodeVisitor = require('./newVisitor/NodeVisitor');
+var CallVisitor = require('./newVisitor/CallVisitor');
+var parser = require('./main');
+var node = parser.parseCode(phpFile); //전체 AST
 
+//fconsole.log(node.children);
 
+//var node = new Node(node.children);
+var setcookieVisitor = new SetcookieVisitor();
+var callVisitor = new CallVisitor();
+//node.accept(setcookieVisitor);
+node.accept(setcookieVisitor);
 
+//console.log(callVisitor.nodes);
 
-//code.accept(assign_visitor);
-code.accept(call_visitor);
-code.accept(setcookie_visitor);
+//nodeVisitor.visit(AST);
+//node.accept(setcookieVisitor);
 
-//console.log(assign_visitor.stms);
-console.log("----------------------------------------------------------");
-console.log(call_visitor.nodes);
-console.log("----------------------------------------------------------");
-console.log(setcookie_visitor.nodes);
 
 
 

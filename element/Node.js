@@ -1,11 +1,13 @@
 class Node {
-    constructor(phpFile) {
-        var parser = require('../main');
-        var AST = parser.parseCode(phpFile);
+    constructor(AST) {
+        var AST = AST;
+        console.log(AST);
     }
 
     accept(v){
-      v.visit(AST);
+        console.log(v);
+        console.log(this.AST);
+        v.visit(this.AST);
     }
 }
 
