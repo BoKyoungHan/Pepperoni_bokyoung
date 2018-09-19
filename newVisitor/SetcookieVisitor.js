@@ -11,9 +11,10 @@ class SetcookieVisitor extends CallVisitor{
 
     visit(node){
         super.visit(node);
-        //this.nodes = _.uniq(this.nodes,'kind');
         this.nodes = _.filter(this.nodes, e =>  _.has(e.what, 'name') && e.what.name == 'setcookie');
-        
+    }
+
+    execute(){
         for(let i=0; i < this.nodes.length; i++){
             this.argument = this.nodes[i].arguments;
             
@@ -39,8 +40,8 @@ class SetcookieVisitor extends CallVisitor{
             }
         }
 
-        console.log("Setcookie visitor");
-        console.log(this.nodes);
+        // console.log("Setcookie visitor");
+        // console.log(this.nodes);
         
         console.log("Weak cookies : The parameter of setcookie function of HttpOnly is '0'");
         this.printLine(this.weak_cookie);
