@@ -1,9 +1,9 @@
 const SetcookieVisitor = require('../newVisitor/SetcookieVisitor');
-const Detector = require('./detector');
+const Detector = require('./Detector');
 const _ = require('underscore');
 
 class SetcookieDetector extends Detector {
-    constructor() {
+    constructor(){
       super();
     }
 
@@ -11,7 +11,6 @@ class SetcookieDetector extends Detector {
         var setcookieVisitor = new SetcookieVisitor();
 
         node.accept(setcookieVisitor);
-        //setcookieVisitor.nodes.forEach( e=>{console.log(e)});
         setcookieVisitor.execute();
     }
 

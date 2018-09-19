@@ -40,8 +40,6 @@ class SetcookieVisitor extends CallVisitor{
             }
         }
 
-        // console.log("Setcookie visitor");
-        // console.log(this.nodes);
         
         console.log("Weak cookies : The parameter of setcookie function of HttpOnly is '0'");
         this.printLine(this.weak_cookie);

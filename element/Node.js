@@ -1,14 +1,12 @@
-class Node {
-    constructor(AST) {
-        var AST = AST;
-        console.log(AST);
-    }
+// class Node {
+//     constructor(AST) {
+//         var AST = AST;
+//         console.log(AST);
+//     }
 
-    accept(v){
-        console.log(v);
-        console.log(this.AST);
-        v.visit(this.AST);
-    }
-}
+//     accept(v){
+//         v.visit(node);
+//     }
+// }
 
-module.exports = Node;
+// module.exports = Node;

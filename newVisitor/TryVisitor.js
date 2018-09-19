@@ -1,21 +1,18 @@
+const NodeVisitor = require('./nodeVisitor');
 const _ = require('underscore');
-const Detector = require('./detector');
-const TryVisitor = require('../visitor/tryVisitor');
 
-/**
- * This Class is Detector for finding empty catch block
- */
-class EmptyCatch_Detector extends Detector {
-    constructor(){
+class TryVisitor extends NodeVisitor {
+    constructor() {
         super();
-        this.tryVisitor = new TryVisitor();
         this.emptyCatch = [];
     }
 
-    detect(node){
-        node.accept(this.tryVisitor);
-        this.nodes = this.tryVisitor.nodes;
+    visit(node){
+      super.visit(node);
+      this.nodes = _.filter(this.nodes, e=>e.kind == 'try');
+    }
 
+    execute(){
         for(let i=0; i < this.nodes.length; i++){
             this.catch = this.nodes[i].catches[0];
             //console.log(this.catch);
@@ -28,7 +25,7 @@ class EmptyCatch_Detector extends Detector {
         console.log("There is empty catch statement: ");
         this.printLine(this.emptyCatch);
     }
-
+    
     printLine(stms){
         stms.forEach(e=>{
           console.log(e.loc.start);
@@ -36,4 +33,4 @@ class EmptyCatch_Detector extends Detector {
     }
 }
 
-module.exports = EmptyCatch_Detector;
+module.exports = TryVisitor;
