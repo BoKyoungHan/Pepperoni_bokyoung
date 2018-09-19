@@ -1,0 +1,49 @@
+const CallVisitor = require('./callVisitor');
+const _ = require('underscore');
+
+class SetcookieVisitor extends CallVisitor{
+    
+    constructor() {
+        super();
+        this.danger_cookie = [];
+        this.weak_cookie = [];
+    }
+
+    visit(node){
+        super.visit(node);
+        this.nodes = _.filter(this.nodes, e =>  _.has(e.what, 'name') && e.what.name == 'setcookie');
+        
+        for(let i=0; i < this.nodes.length; i++){
+            this.argument = this.nodes[i].arguments;
+            
+            this.countNumber = 0;
+            this.offset = 0;
+
+            for(let j=0; j < this.argument.length; j++){
+                if(this.argument[j].kind=='number'){
+                    this.countNumber ++;
+                    this.offset = j;
+                    if(this.argument[j].value != '1'){
+                        this.weak_cookie.push(this.nodes[i]);
+                    }
+                }
+            }
+
+            if(this.countNumber == 0){
+                this.danger_cookie.push(this.nodes[i]);
+            }
+
+            if(this.countNumber == 1 && this.argument[this.offset].value == '1'){
+                this.weak_cookie.push(this.nodes[i]);
+            }
+        }
+        
+        console.log("Weak cookies : The parameter of setcookie function of HttpOnly is '0'");
+        this.printLine(this.weak_cookie);
+        console.log("Dangerous cookies : There is no parameter about HttpOnly setting");
+        this.printLine(this.danger_cookie);
+
+    }
+}
+
+module.exports = SetcookieVisitor;
